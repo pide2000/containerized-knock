@@ -1,0 +1,14 @@
+FROM fedora:latest
+RUN dnf update -y && dnf install -y wget util-linux bzip2
+RUN mkdir /home/knock 
+RUN mkdir /home/knock/acsm 
+WORKDIR /home/knock 
+RUN wget https://github.com/BentonEdmondson/knock/releases/download/0.1.0-alpha/knock-0.1.0-alpha-x86_64-linux && chmod ugo+x knock-0.1.0-alpha-x86_64-linux && mv knock-0.1.0-alpha-x86_64-linux knock
+
+CMD for file in acsm/*; do ./knock "$(pwd)"/$file; done
+
+# HOW TO:
+# Prerequisites: Docker or podman is installed on you system
+# Run the following command in your shell. 
+# $: docker run -v [absolute/path/to/your/acsm/files.acsm]:/home/knock/acsm_r:z --rm knock
+# As you can see above, the script searches for *.acsm files and starts knock on every file found inside the specified acsm path. NOTE: No whitespace allowed in filenames. 
