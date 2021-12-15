@@ -1,7 +1,6 @@
 FROM fedora:latest
-RUN dnf update -y && dnf install -y wget util-linux bzip2
-RUN mkdir /home/knock 
-RUN mkdir /home/knock/acsm 
+RUN dnf update -y && dnf install -y wget util-linux bzip2 
+RUN mkdir -p /home/knock/acsm 
 WORKDIR /home/knock 
 RUN wget https://github.com/BentonEdmondson/knock/releases/download/0.1.0-alpha/knock-0.1.0-alpha-x86_64-linux && chmod ugo+x knock-0.1.0-alpha-x86_64-linux && mv knock-0.1.0-alpha-x86_64-linux knock
 
